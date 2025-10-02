@@ -1,0 +1,41 @@
+graph TD
+    %% EDA Full Workflow
+    
+    %% Define main workflow nodes
+    UA["Univariate Analysis"]:::normal
+    HG["Hypothesis Generation"]:::normal
+    EWL["EDA Worker Loop"]:::normal
+    SUM["Summarizer"]:::normal
+    EH["Error Handler"]:::error
+    END["End"]:::end
+    
+    %% Define tool nodes
+    UA_TOOLS["Data Profiling, Anomaly Detection, Trend Analysis"]:::tools
+    HG_TOOLS["Web Search, Variable Discovery, LLM Research"]:::tools
+    EWL_TOOLS["Resource Management, Parallel Execution"]:::tools
+    SUM_TOOLS["Result Aggregation, Summary Generation"]:::tools
+    EH_TOOLS["Error Detection, Logging, Recovery"]:::tools
+    
+    %% Connect main nodes to their tools
+    UA --> UA_TOOLS
+    HG --> HG_TOOLS
+    EWL --> EWL_TOOLS
+    SUM --> SUM_TOOLS
+    EH --> EH_TOOLS
+    
+    %% Main workflow flow
+    UA -->|continue| HG
+    UA -.->|error| EH
+    HG -->|continue| EWL
+    HG -.->|error| EH
+    EWL -->|continue| SUM
+    EWL -.->|error| EH
+    SUM -->|continue| END
+    SUM -.->|error| EH
+    EH -->|end| END
+    
+    %% Styling
+    classDef normal fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef end fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#000
+    classDef tools fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000,font-size:10px

@@ -1,0 +1,35 @@
+agent:
+  file: eda_analysis.py
+  class: EDAAnalysisAgent
+
+model_provider: openai
+model_name: gpt-4o-mini
+
+prompt:
+  file: eda_analysis_prompt.py
+  variable: prompt
+
+# Port configuration for dependency injection
+ports:
+  vector_search:
+    adapter: MongoDBVectorSearchAdapter
+    config:
+      mongo_uri_env: MONGO_ATLAS_SEARCH_INDEX_ENABLED_DB
+      embedding_provider: gemini
+      embedding_model: models/embedding-001
+      database_name: cmms
+
+# Agent-specific configuration
+eda_analysis_config:
+  timeout: 300
+  max_correlation_threshold: 0.7
+  min_correlation_threshold: 0.3
+  visualization_formats: ["png", "svg"]
+  statistical_tests: ["pearson", "spearman"]
+  transformation_types: ["log", "sqrt", "standardize", "normalize"]
+  sample_size_limit: 10000
+  cache_visualizations: true
+  default_figure_size: [10, 6]
+
+# Note: Tools are now created programmatically using injected ports
+tools: []

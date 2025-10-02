@@ -1,0 +1,111 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: Tracks expenditures on various advertising channels to evaluate marketing
+    investment across different platforms.
+  tags: null
+  uuid: dfb9f87a-a759-4ddb-976d-69571285b491
+  schema: public
+  database: ''
+  table:
+    name: ad_spends
+    description: Tracks expenditures on various advertising channels to evaluate marketing
+      investment across different platforms.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\ad_spends.csv
+      type: csv
+    columns:
+    - name: camp_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies specific marketing campaigns for tracking and analysis
+        of advertising expenditures.
+      tags:
+      - Campaign Identifier
+      - Advertising Campaign
+      - Marketing Spend Tracking
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - C116
+        - C141
+        - C140
+        - C178
+        - C157
+        - C122
+        - C148
+        - C163
+        - C164
+        - C171
+    - name: channel
+      type: close_ended_text
+      category: dimension
+      description: Identifies the various platforms or mediums through which advertising
+        expenditures are allocated.
+      tags:
+      - Advertising Medium
+      - Marketing Channel
+      - Promotional Strategy
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 5
+        sample_data:
+        - Online
+        - Social Media
+        - Radio
+        - Print
+        - Television
+    - name: amt
+      type: float
+      category: measure
+      description: Monetary expenditures allocated for advertising efforts.
+      tags:
+      - Advertising Spend
+      - Marketing Budget
+      - Campaign Investment
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - '38017.64'
+        - '32770.42'
+        - '14186.7'
+        - '29937.5'
+        - '46233.25'
+        - '27788.11'
+        - '11344.75'
+        - '29985.85'
+        - '19799.49'
+        - '49870.6'
+    - name: duration
+      type: integer
+      category: measure
+      description: Indicates the length of time allocated for advertising expenditures.
+      tags:
+      - Campaign Duration
+      - Ad Spend Period
+      - Marketing Timeframe
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 59
+        sample_data:
+        - '27'
+        - '30'
+        - '34'
+        - '82'
+        - '59'
+        - '83'
+        - '21'
+        - '68'
+        - '57'
+        - '16'
+    profiling_metrics:
+      count: 100
+    key: camp_id
+    source_last_modified: 1758983735.4202738

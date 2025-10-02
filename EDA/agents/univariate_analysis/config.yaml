@@ -1,0 +1,31 @@
+agent:
+  file: univariate_analysis.py
+  class: UnivariateAnalysisAgent
+
+model_provider: openai
+model_name: gpt-4o-mini
+
+prompt:
+  file: univariate_analysis_prompt.py
+  variable: prompt
+
+# Port configuration for dependency injection
+ports:
+  vector_search:
+    adapter: MongoDBVectorSearchAdapter
+    config:
+      mongo_uri_env: MONGO_ATLAS_SEARCH_INDEX_ENABLED_DB
+      embedding_provider: gemini
+      embedding_model: models/embedding-001
+      database_name: cmms
+
+# Analysis configuration
+analysis_config:
+  anomaly_detection_method: iqr  # Options: iqr, z_score, isolation_forest
+  trend_analysis: true
+  visualization_enabled: true
+  max_related_variables: 10
+  confidence_threshold: 0.7
+
+# Note: Tools are now created programmatically using injected ports
+tools: []

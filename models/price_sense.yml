@@ -1,0 +1,142 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: A system for analyzing the relationship between pricing changes and
+    consumer demand to inform pricing strategies.
+  tags: null
+  uuid: b524c2d4-6f23-47e5-bf9f-b0decd945cf5
+  schema: public
+  database: ''
+  table:
+    name: price_sense
+    description: A system for analyzing the relationship between pricing changes and
+      consumer demand to inform pricing strategies.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\price_sense.csv
+      type: csv
+    columns:
+    - name: pid
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique pricing records associated with various products
+        or services.
+      tags:
+      - Product Identifier
+      - Pricing Strategy
+      - Inventory Management
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - P128
+        - P178
+        - P117
+        - P194
+        - P196
+        - P104
+        - P198
+        - P119
+        - P121
+        - P187
+    - name: price_inc
+      type: float
+      category: measure
+      description: Indicates the incremental increase in pricing for products or services
+        offered.
+      tags:
+      - Price Increment Analysis
+      - Sales Pricing Strategy
+      - Revenue Growth Indicator
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 97
+        sample_data:
+        - '16.94'
+        - '15.03'
+        - '10.01'
+        - '6.97'
+        - '11.65'
+        - '8.35'
+        - '15.92'
+        - '10.28'
+        - '19.16'
+        - '15.76'
+    - name: demand_dec
+      type: float
+      category: measure
+      description: Indicates the projected demand levels for a product or service
+        over a specified period.
+      tags:
+      - Demand Forecasting
+      - Sales Analysis
+      - Market Trends
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 98
+        sample_data:
+        - '20.58'
+        - '9.79'
+        - '25.14'
+        - '5.84'
+        - '24.55'
+        - '21.58'
+        - '28.68'
+        - '6.89'
+        - '25.55'
+        - '13.44'
+    - name: price_dec
+      type: float
+      category: measure
+      description: Indicates the monetary value assigned to a product or service in
+        a pricing context.
+      tags:
+      - Product Pricing
+      - Sales Analysis
+      - Market Value
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 99
+        sample_data:
+        - '7.54'
+        - '16.65'
+        - '16.95'
+        - '13.15'
+        - '16.27'
+        - '14.4'
+        - '14.18'
+        - '11.92'
+        - '16.2'
+        - '10.84'
+    - name: demand_dec_1
+      type: float
+      category: measure
+      description: Indicates the projected demand for a product or service in December,
+        reflecting market trends and consumer behavior.
+      tags:
+      - Demand Forecasting
+      - Price Sensitivity Analysis
+      - Sales Trend Evaluation
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 97
+        sample_data:
+        - '11.67'
+        - '9.28'
+        - '14.74'
+        - '10.43'
+        - '23.53'
+        - '27.58'
+        - '15.13'
+        - '19.89'
+        - '9.19'
+        - '10.98'
+    profiling_metrics:
+      count: 100
+    key: pid
+    source_last_modified: 1758983735.4202738

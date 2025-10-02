@@ -1,0 +1,152 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: Captures and analyzes the performance metrics of marketing campaigns
+    across various social media platforms to optimize engagement and return on investment.
+  tags: null
+  uuid: 230f666a-2c67-4a45-86d5-8dbd17d676a8
+  schema: public
+  database: ''
+  table:
+    name: social
+    description: Captures and analyzes the performance metrics of marketing campaigns
+      across various social media platforms to optimize engagement and return on investment.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\social.csv
+      type: csv
+    columns:
+    - name: camp_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique marketing campaigns within a social media context.
+      tags:
+      - Campaign Identifier
+      - Marketing Campaign
+      - Promotional Activity
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 4
+        sample_data:
+        - C102
+        - C104
+        - C101
+        - C103
+    - name: platform
+      type: close_ended_text
+      category: dimension
+      description: Identifies the various social media channels utilized for engagement
+        and communication.
+      tags:
+      - Social Media Platform
+      - Digital Marketing Channel
+      - User Engagement Source
+      profiling_metrics:
+        count: 100
+        null_count: 6
+        distinct_count: 4
+        sample_data:
+        - Facebook
+        - LinkedIn
+        - Twitter
+        - Instagram
+    - name: eng_rate
+      type: float
+      category: measure
+      description: A measure of user interaction or involvement with social content.
+      tags:
+      - Engagement Rate Metric
+      - Social Media Performance
+      - User Interaction Measurement
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 98
+        sample_data:
+        - '12.41'
+        - '9.35'
+        - '5.32'
+        - '5.39'
+        - '4.29'
+        - '7.38'
+        - '13.02'
+        - '4.46'
+        - '9.53'
+        - '9.17'
+    - name: reach
+      type: integer
+      category: measure
+      description: Indicates the extent of audience engagement or visibility achieved
+        through social media channels.
+      tags:
+      - Audience Engagement
+      - Social Media Impact
+      - Marketing Reach
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 91
+        sample_data:
+        - '536'
+        - '534'
+        - '526'
+        - '54'
+        - '387'
+        - '15'
+        - '63'
+        - '32'
+        - '548'
+        - '824'
+    - name: conv_rate
+      type: float
+      category: measure
+      description: A measure of the effectiveness of marketing efforts in converting
+        potential customers into actual buyers.
+      tags:
+      - Conversion Rate Analysis
+      - Marketing Performance Metric
+      - Sales Effectiveness Indicator
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 94
+        sample_data:
+        - '6.23'
+        - '8.83'
+        - '1.92'
+        - '3.46'
+        - '1.11'
+        - '2.04'
+        - '6.68'
+        - '7.22'
+        - '3.35'
+        - '6.52'
+    - name: roi
+      type: float
+      category: measure
+      description: A measure of the profitability and efficiency of investments made
+        in social initiatives.
+      tags:
+      - Return On Investment
+      - Financial Performance
+      - Investment Efficiency
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - '95.8'
+        - '102.98'
+        - '169.51'
+        - '109.22'
+        - '257.52'
+        - '36.83'
+        - '268.49'
+        - '123.35'
+        - '257.83'
+        - '297.51'
+    profiling_metrics:
+      count: 100
+    key: ''
+    source_last_modified: 1758983735.4202738

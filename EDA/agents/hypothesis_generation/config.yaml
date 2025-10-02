@@ -1,0 +1,67 @@
+agent:
+  file: hypothesis_generation.py
+  class: HypothesisGenerationAgent
+
+model_provider: openai
+model_name: gpt-4o-mini
+
+prompt:
+  file: hypothesis_generation_prompt.py
+  variable: prompt
+
+# Port configuration for dependency injection
+ports:
+  vector_search:
+    adapter: MongoDBVectorSearchAdapter
+    config:
+      mongo_uri_env: MONGO_ATLAS_SEARCH_INDEX_ENABLED_DB
+      embedding_provider: gemini
+      embedding_model: models/embedding-001
+      database_name: cmms
+
+# Agent-specific configuration
+hypothesis_generation_config:
+  max_hypotheses: 10
+  min_confidence_threshold: 0.5
+  enable_web_search: true
+  enable_rag_search: true
+  dump_to_file: false  # Set to true to automatically dump results to text file
+  transformation_mappings:
+    log_log_relationship: "log_log"
+    log_linear_relationship: "log_linear"
+    lagged_effect: "lag_1"
+    seasonal_effect: "seasonal_decomposition"
+    interaction_effect: "interaction"
+    polynomial_relationship: "polynomial_2"
+    exponential_relationship: "exponential"
+  relationship_types:
+    - "log_log_relationship"
+    - "log_linear_relationship"
+    - "lagged_effect"
+    - "seasonal_effect"
+    - "interaction_effect"
+    - "polynomial_relationship"
+    - "exponential_relationship"
+    - "linear_relationship"
+  aggregation_types:
+    - "product"
+    - "customer"
+    - "time"
+    - "category"
+    - "region"
+    - "default"
+  web_search_config:
+    max_queries: 4
+    query_templates:
+      - "what factors influence {target_variable} in {domain}"
+      - "{target_variable} predictive analytics {domain}"
+      - "feature engineering for {target_variable} prediction"
+      - "{domain} {target_variable} influencing variables"
+  rag_config:
+    vector_db: "qdrant"
+    collection_name: "domain_knowledge"
+    similarity_threshold: 0.7
+    max_results: 5
+
+# Note: Tools are now created programmatically using injected ports
+tools: []

@@ -1,0 +1,247 @@
+---
+description: Project-level code standards to prevent complexity, minimize logging, reduce fallback code, and avoid unnecessary files
+globs: **/*.py
+alwaysApply: true
+---
+
+# Project Code Standards
+
+### CRITICAL: Donot create multiple testing files. Keep only one file always
+
+## CRITICAL: Keep Code Simple and Focused
+
+### 1. **MAXIMUM 2 LEVELS OF NESTING** 🚫
+
+**NEVER exceed 2 levels of function/class nesting OR function call chains.**
+
+#### ✅ GOOD Examples:
+```python
+# Level 1: Class
+class MyAgent:
+    # Level 2: Method (MAXIMUM)
+    def process(self, state):
+        return self._handle_data(state)
+    
+    def _handle_data(self, state):
+        return processed_data
+```
+
+```python
+# GOOD: Simple function call chain (2 levels max)
+def process_request(request):
+    return process_single_request(request)
+
+def process_single_request(request):
+    return result
+```
+
+#### ❌ BAD Examples:
+```python
+# BAD: 3+ levels of nested function definitions
+class MyAgent:
+    def process(self, state):
+        def inner_function():
+            def another_inner():  # TOO DEEP!
+                return result
+            return another_inner()
+        return inner_function()
+```
+
+```python
+# BAD: Deep function call chains (3+ levels)
+def process_request(request):
+    return process_single_request(request)
+
+def process_single_request(request):
+    return call_agent(request)
+
+def call_agent(request):
+    return execute_agent_logic(request)  # TOO DEEP!
+
+def execute_agent_logic(request):
+    return final_result
+```
+
+### 2. **MINIMIZE LOGGING** 📝
+
+**Use logging SPARINGLY. Only log critical errors and essential state changes.**
+
+#### ✅ GOOD Logging:
+```python
+import logging
+
+class MyAgent:
+    def process(self, state):
+        try:
+            result = self._do_work(state)
+            return result
+        except Exception as e:
+            logging.error(f"Critical failure in {self.__class__.__name__}: {e}")
+            raise
+```
+
+#### ❌ BAD Logging:
+```python
+# BAD: Excessive logging
+class MyAgent:
+    def process(self, state):
+        logging.info("Starting process")
+        logging.debug(f"State received: {state}")
+        logging.info("Processing data")
+        result = self._do_work(state)
+        logging.info(f"Result: {result}")
+        logging.debug("Process completed successfully")
+        return result
+```
+
+### 3. **STOP WRITING FALLBACK CODE FOR EVERYTHING** 🛑
+
+**Only write fallback code when absolutely necessary. Trust the system to work.**
+
+#### ✅ GOOD: Minimal Fallbacks:
+```python
+class MyAgent:
+    def process(self, state):
+        # Only essential fallback
+        if not state:
+            raise ValueError("State is required")
+        
+        return self._do_work(state)
+```
+
+#### ❌ BAD: Excessive Fallbacks:
+```python
+# BAD: Fallback for everything
+class MyAgent:
+    def process(self, state):
+        try:
+            if state is None:
+                state = {}
+            if not isinstance(state, dict):
+                state = {"data": state}
+            if "data" not in state:
+                state["data"] = None
+            if state["data"] is None:
+                state["data"] = []
+            # ... more fallbacks
+        except Exception as e:
+            # Multiple fallback layers
+            pass
+```
+
+### 4. **NO ADDITIONAL FILES WITH EVERY IMPLEMENTATION** 📁
+
+**DO NOT create example files, README files, or documentation files unless explicitly requested.**
+
+#### ✅ GOOD: Core Files Only:
+```
+agents/
+└── my_agent/
+    ├── __init__.py
+    ├── my_agent.py
+    ├── config.yaml
+    └── my_agent_prompt.py
+```
+
+#### ❌ BAD: Unnecessary Files:
+```
+agents/
+└── my_agent/
+    ├── __init__.py
+    ├── my_agent.py
+    ├── config.yaml
+    ├── my_agent_prompt.py
+    ├── example_usage.py      # ❌ Don't create unless asked
+    ├── README.md             # ❌ Don't create unless asked
+    ├── test_my_agent.py      # ❌ Don't create unless asked
+    └── documentation.md      # ❌ Don't create unless asked
+```
+
+## ENFORCEMENT RULES
+
+### Code Structure Rules:
+1. **Maximum 2 levels of nesting** - Refactor if deeper (includes function call chains)
+2. **Single responsibility** - One purpose per function/class
+3. **Direct implementation** - No unnecessary abstraction layers
+4. **Fail fast** - Let errors bubble up naturally
+5. **Avoid deep call chains** - process_request → process_single_request → call_agent → execute_agent_logic is TOO DEEP
+
+### Logging Rules:
+1. **Only log critical errors** that require attention
+2. **No debug/info logging** unless debugging specific issues
+3. **No state logging** - trust the system
+4. **No success logging** - silence is success
+
+### Fallback Rules:
+1. **Only essential validation** - required parameters, critical state
+2. **No defensive programming** - trust inputs
+3. **No multiple fallback layers** - one level maximum
+4. **Fail fast on errors** - don't mask problems
+
+### File Creation Rules:
+1. **Core functionality only** - essential files
+2. **No examples unless requested** - ask first
+3. **No documentation unless requested** - ask first
+4. **No tests unless requested** - ask first
+
+## EXAMPLES
+
+### ✅ GOOD: Simple Agent Implementation
+```python
+class SimpleAgent:
+    def __init__(self, config):
+        self.config = config
+        self.llm = get_llm(config)
+    
+    def process(self, state):
+        if not state.get("data"):
+            raise ValueError("Data required")
+        
+        result = self.llm.invoke(state["data"])
+        return {"result": result}
+```
+
+### ❌ BAD: Over-Engineered Implementation
+```python
+class OverEngineeredAgent:
+    def __init__(self, config, fallback_config=None, logger=None):
+        self.config = config or {}
+        self.fallback_config = fallback_config or {}
+        self.logger = logger or logging.getLogger(__name__)
+        self.llm = self._initialize_llm()
+        self._setup_fallbacks()
+    
+    def _initialize_llm(self):
+        try:
+            return get_llm(self.config)
+        except Exception as e:
+            self.logger.warning(f"Primary LLM failed: {e}")
+            return self._get_fallback_llm()
+    
+    def _get_fallback_llm(self):
+        try:
+            return get_llm(self.fallback_config)
+        except Exception as e:
+            self.logger.error(f"Fallback LLM failed: {e}")
+            return self._get_default_llm()
+    
+    def _get_default_llm(self):
+        # More fallback layers...
+        pass
+    
+    def process(self, state):
+        self.logger.info("Starting process")
+        try:
+            if not state:
+                state = {}
+            if not isinstance(state, dict):
+                state = {"data": state}
+            # More defensive programming...
+        except Exception as e:
+            self.logger.error(f"Process failed: {e}")
+            return self._handle_error(e)
+```
+
+## REMEMBER
+
+**Simplicity is the ultimate sophistication. Write code that does exactly what it needs to do, nothing more. Trust the system, fail fast, and keep it simple.**

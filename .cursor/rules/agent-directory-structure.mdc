@@ -1,0 +1,240 @@
+---
+description: Standard directory structure for creating new agents
+globs: agents/**/*
+alwaysApply: true
+---
+
+# AGENT DIRECTORY STRUCTURE RULE
+
+## CRITICAL: FOLLOW EXACT DIRECTORY STRUCTURE
+
+**ALWAYS create agents using the exact directory structure shown below.**
+
+## Standard Directory Structure
+
+```
+agents/
+└── {agent_name}/
+    ├── __init__.py
+    ├── {agent_name}.py
+    ├── config.yaml
+    ├── {agent_name}_prompt.py
+    └── example_usage.py
+```
+
+## File Requirements
+
+### 1. **`__init__.py`** - Package Initialization
+- **MUST** be present in every agent directory
+- **MUST** export the main agent class and node function
+- **MUST** include proper docstring
+
+### 2. **`{agent_name}.py`** - Main Agent Class
+- **MUST** contain the main agent class
+- **MUST** contain the LangGraph node function
+- **MUST** follow the template structure
+- **MUST** include proper error handling
+
+### 3. **`config.yaml`** - Configuration File
+- **MUST** contain agent configuration
+- **MUST** include model provider and name
+- **MUST** include prompt file reference
+- **MUST** include port configuration
+- **MUST** include agent-specific config
+
+### 4. **`{agent_name}_prompt.py`** - Agent Prompt
+- **MUST** contain the agent prompt
+- **MUST** define agent role and capabilities
+- **MUST** specify output format
+- **MUST** include guidelines and error handling
+
+### 5. **`example_usage.py`** - Usage Examples
+- **MUST** demonstrate standalone usage
+- **MUST** demonstrate LangGraph integration
+- **MUST** demonstrate workflow integration
+- **MUST** include mock dependencies
+
+## Directory Naming Convention
+
+### Agent Names:
+- **Use snake_case** for directory names
+- **Use descriptive names** that indicate the agent's purpose
+- **Keep names concise** but clear
+
+### Examples:
+```
+✅ GOOD:
+- univariate_analysis/
+- hypothesis_generation/
+- eda_worker_loop/
+- summarizer/
+
+❌ BAD:
+- univariateanalysis/
+- hypothesis-generation/
+- edaWorkerLoop/
+- summarizer_agent/
+```
+
+## File Naming Convention
+
+### Python Files:
+- **Use snake_case** for file names
+- **Match the directory name** for main agent file
+- **Add descriptive suffixes** for other files
+
+### Examples:
+```
+✅ GOOD:
+- univariate_analysis.py
+- univariate_analysis_prompt.py
+- example_usage.py
+
+❌ BAD:
+- univariateAnalysis.py
+- univariate-analysis-prompt.py
+- exampleUsage.py
+```
+
+## Class Naming Convention
+
+### Agent Classes:
+- **Use PascalCase** for class names
+- **Add "Agent" suffix** to class names
+- **Match the directory name** in PascalCase
+
+### Examples:
+```
+✅ GOOD:
+- UnivariateAnalysisAgent
+- HypothesisGenerationAgent
+- EDAWorkerLoopAgent
+- SummarizerAgent
+
+❌ BAD:
+- univariate_analysis_agent
+- HypothesisGeneration
+- EDAWorkerLoop
+- summarizer
+```
+
+## Function Naming Convention
+
+### Node Functions:
+- **Use snake_case** for function names
+- **Add "_agent" suffix** to node function names
+- **Match the directory name**
+
+### Examples:
+```
+✅ GOOD:
+- univariate_analysis_agent()
+- hypothesis_generation_agent()
+- eda_worker_loop_agent()
+- summarizer_agent()
+
+❌ BAD:
+- univariateAnalysisAgent()
+- hypothesis_generation()
+- edaWorkerLoopAgent()
+- summarizer()
+```
+
+## Import Structure
+
+### Standard Imports:
+```python
+from langgraph.prebuilt import create_react_agent
+from langchain_core.messages import AIMessage
+from LLMS.llms import get_llm
+from utils.states.orchestrator_states import OrchestratorState
+import json
+import logging
+from typing import Dict, Any, Optional, List
+from agents.{agent_name}.{agent_name}_prompt import prompt
+from utils.config_loader import AgentConfigLoader
+from utils.helper import clean_messages_for_agent, msg_to_dict
+```
+
+## Configuration Structure
+
+### Standard Config:
+```yaml
+agent:
+  file: {agent_name}.py
+  class: {AgentName}Agent
+
+model_provider: openai
+model_name: gpt-4o-mini
+
+prompt:
+  file: {agent_name}_prompt.py
+  variable: prompt
+
+# Port configuration for dependency injection
+ports:
+  vector_search:
+    adapter: MongoDBVectorSearchAdapter
+    config:
+      mongo_uri_env: MONGO_ATLAS_SEARCH_INDEX_ENABLED_DB
+      embedding_provider: gemini
+      embedding_model: models/embedding-001
+      database_name: cmms
+
+# Agent-specific configuration
+{agent_name}_config:
+  {config_parameters}
+
+# Note: Tools are now created programmatically using injected ports
+tools: []
+```
+
+## Enforcement Rules
+
+1. **MUST** create all 5 required files
+2. **MUST** follow exact naming conventions
+3. **MUST** use proper directory structure
+4. **MUST** include all required imports
+5. **MUST** follow configuration template
+6. **MUST NOT** create additional files unless requested
+7. **MUST NOT** deviate from the standard structure
+
+## Validation Checklist
+
+Before considering an agent complete, verify:
+
+- [ ] Directory name follows snake_case convention
+- [ ] All 5 required files are present
+- [ ] File names follow naming conventions
+- [ ] Class names follow PascalCase convention
+- [ ] Function names follow snake_case convention
+- [ ] Imports are complete and correct
+- [ ] Configuration follows template
+- [ ] No additional files created
+- [ ] Structure matches standard exactly
+
+## Examples
+
+### ✅ CORRECT Structure:
+```
+agents/
+└── hypothesis_generation/
+    ├── __init__.py
+    ├── hypothesis_generation.py
+    ├── config.yaml
+    ├── hypothesis_generation_prompt.py
+    └── example_usage.py
+```
+
+### ❌ INCORRECT Structure:
+```
+agents/
+└── hypothesis-generation/  # Wrong: uses hyphens
+    ├── hypothesis_generation.py
+    ├── config.yaml
+    └── prompt.py  # Wrong: missing required files
+```
+
+## Remember:
+
+**Consistency is key. Every agent must follow the exact same structure and naming conventions. This ensures maintainability and makes the codebase predictable for all developers.**

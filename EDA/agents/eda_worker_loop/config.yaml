@@ -1,0 +1,31 @@
+agent:
+  file: eda_worker_loop.py
+  class: EDAWorkerLoopAgent
+
+model_provider: openai
+model_name: gpt-4o-mini
+
+prompt:
+  file: eda_worker_loop_prompt.py
+  variable: prompt
+
+# Port configuration for dependency injection
+ports:
+  vector_search:
+    adapter: MongoDBVectorSearchAdapter
+    config:
+      mongo_uri_env: MONGO_ATLAS_SEARCH_INDEX_ENABLED_DB
+      embedding_provider: gemini
+      embedding_model: models/embedding-001
+      database_name: cmms
+
+# Agent-specific configuration
+eda_worker_loop_config:
+  max_workers: 5
+  timeout_per_hypothesis: 300
+  enable_parallel_processing: true
+  retry_failed_hypotheses: true
+  max_retries: 2
+
+# Note: Tools are now created programmatically using injected ports
+tools: []

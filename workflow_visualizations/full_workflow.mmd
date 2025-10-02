@@ -1,0 +1,36 @@
+graph TD
+    %% EDA Full Workflow
+    
+    %% Define nodes
+    univariate_analysis["Univariate Analysis"]:::normal
+    univariate_analysis_tools["Statistical analysis, anomaly detection, trend analysis, and variable discovery"]:::tools
+    univariate_analysis --> univariate_analysis_tools
+    hypothesis_generation["Hypothesis Generation"]:::normal
+    hypothesis_generation_tools["Domain research, variable discovery, and hypothesis generation using LLM"]:::tools
+    hypothesis_generation --> hypothesis_generation_tools
+    eda_worker_loop["Eda Worker Loop"]:::normal
+    eda_worker_loop_tools["Resource management, parallel execution, and hypothesis testing orchestration"]:::tools
+    eda_worker_loop --> eda_worker_loop_tools
+    summarizer["Summarizer"]:::normal
+    summarizer_tools["Result aggregation, summary generation, and final report creation"]:::tools
+    summarizer --> summarizer_tools
+    error_handler["Error Handler"]:::error
+    error_handler_tools["Error detection, logging, and graceful failure handling"]:::tools
+    error_handler --> error_handler_tools
+    END["End"]:::end
+
+    univariate_analysis -->|continue| hypothesis_generation
+    univariate_analysis -.->|error| error_handler
+    hypothesis_generation -->|continue| eda_worker_loop
+    hypothesis_generation -.->|error| error_handler
+    eda_worker_loop -->|continue| summarizer
+    eda_worker_loop -.->|error| error_handler
+    summarizer -->|continue| END
+    summarizer -.->|error| error_handler
+    error_handler -->|end| END
+
+    %% Styling
+    classDef normal fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef end fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#000
+    classDef tools fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000,font-size:10px

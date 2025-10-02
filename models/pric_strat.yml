@@ -1,0 +1,135 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: A collection of pricing strategies that outlines the impact of various
+    pricing approaches on product sales and market share.
+  tags: null
+  uuid: e0a1a39a-0038-4f57-bc6a-4338033e7304
+  schema: public
+  database: ''
+  table:
+    name: pric_strat
+    description: A collection of pricing strategies that outlines the impact of various
+      pricing approaches on product sales and market share.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\pric_strat.csv
+      type: csv
+    columns:
+    - name: prdid
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique products within a pricing strategy framework.
+      tags:
+      - Product Identifier
+      - Pricing Strategy Reference
+      - Inventory Management
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - P102
+        - P170
+        - P115
+        - P169
+        - P103
+        - P135
+        - P152
+        - P154
+        - P151
+        - P180
+    - name: strat_type
+      type: close_ended_text
+      category: dimension
+      description: Defines the approach or method used for setting prices in a business
+        strategy.
+      tags:
+      - Pricing Strategy
+      - Market Positioning
+      - Revenue Optimization
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 4
+        sample_data:
+        - Economy Pricing
+        - Premium Pricing
+        - Penetration Pricing
+        - Skimming Pricing
+    - name: pric_chg
+      type: float
+      category: measure
+      description: Indicates the percentage change in pricing strategy over a specified
+        period.
+      tags:
+      - Price Change Percentage
+      - Revenue Impact Indicator
+      - Market Adjustment Factor
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 99
+        sample_data:
+        - '-8.06'
+        - '0.46'
+        - '5.94'
+        - '-0.44'
+        - '-9.25'
+        - '5.37'
+        - '4.88'
+        - '-8.66'
+        - '0.17'
+        - '-9.43'
+    - name: sales_chg
+      type: float
+      category: measure
+      description: Indicates the percentage change in sales, reflecting the performance
+        of pricing strategies over time.
+      tags:
+      - Sales Change Percentage
+      - Revenue Adjustment Indicator
+      - Price Strategy Impact
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 97
+        sample_data:
+        - '4.02'
+        - '2.74'
+        - '2.1'
+        - '2.36'
+        - '-1.96'
+        - '2.58'
+        - '-1.13'
+        - '-3.4'
+        - '14.45'
+        - '0.69'
+    - name: ms_chg
+      type: float
+      category: measure
+      description: Indicates the percentage change in pricing strategy over a specified
+        period.
+      tags:
+      - Market Share Change
+      - Pricing Strategy Impact
+      - Revenue Adjustment Factor
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 94
+        sample_data:
+        - '5.37'
+        - '6.35'
+        - '3.44'
+        - '1.24'
+        - '4.54'
+        - '0.14'
+        - '0.38'
+        - '3.25'
+        - '7.85'
+        - '-0.25'
+    profiling_metrics:
+      count: 100
+    key: prdid
+    source_last_modified: 1758983735.4202738

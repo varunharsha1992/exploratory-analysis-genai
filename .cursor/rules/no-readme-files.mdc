@@ -1,0 +1,118 @@
+---
+description: Explicit rule to never create README files for individual agents or components
+globs: agents/**/*
+alwaysApply: true
+---
+
+# NO README FILES RULE
+
+## CRITICAL: NEVER CREATE README FILES
+
+**DO NOT create README files for individual agents, components, or updates unless explicitly requested by the user.**
+
+## What NOT to do:
+
+❌ **NEVER create these files:**
+- `README.md` in agent directories
+- `README.md` for individual components
+- `README.md` for updates or changes
+- `README.md` for new features
+- `README.md` for bug fixes
+- Any documentation files ending in `.md` unless specifically requested
+
+## What TO do instead:
+
+✅ **DO create these files:**
+- Code files (`.py`, `.yaml`, `.json`)
+- Configuration files
+- Example usage files
+- Test files
+- Documentation only when explicitly requested
+
+## Exceptions:
+
+The ONLY time you should create a README file is when:
+1. **The user explicitly asks for documentation**
+2. **The user specifically requests a README file**
+3. **The user asks for "documentation" or "docs"**
+
+## Examples:
+
+❌ **WRONG:**
+```
+User: "Create a new agent"
+AI: Creates agent + README.md (without being asked)
+```
+
+✅ **CORRECT:**
+```
+User: "Create a new agent"
+AI: Creates agent files only (no README)
+```
+
+✅ **ALSO CORRECT:**
+```
+User: "Create a new agent and add documentation"
+AI: Creates agent files + README.md (explicitly requested)
+```
+
+## Enforcement:
+
+- **Always check**: Did the user ask for documentation?
+- **Default behavior**: Create code files only
+- **When in doubt**: Don't create README files
+- **Ask first**: If you think documentation might be helpful, ask the user
+
+## File Creation Priority:
+
+1. **Core functionality files** (`.py`, `.yaml`)
+2. **Configuration files**
+3. **Example files** (if helpful)
+4. **Documentation files** (ONLY if requested)
+
+## Environment Execution Rules:
+
+### CRITICAL: ALWAYS USE LIXEP ENVIRONMENT
+
+**ALWAYS execute code and run commands in the `liexp` environment unless explicitly told otherwise.**
+
+#### Environment Requirements:
+- **Default environment**: `liexp` (conda/virtual environment)
+- **Activation command**: `conda activate liexp` or equivalent
+- **Verification**: Always verify environment is active before execution
+- **Error handling**: If `liexp` environment is not available, inform user and ask for guidance
+
+#### Execution Guidelines:
+1. **Before running any Python code**: Ensure `liexp` environment is activated
+2. **Before installing packages**: Use `liexp` environment's pip/conda
+3. **Before running tests**: Execute in `liexp` environment
+4. **Before running scripts**: Verify environment activation
+5. **Error scenarios**: If environment issues occur, provide clear instructions for activation
+
+#### Examples:
+
+✅ **CORRECT:**
+```bash
+# Always activate liexp first
+conda activate liexp
+python setup_intugle.py
+```
+
+✅ **CORRECT:**
+```bash
+# Install packages in liexp environment
+conda activate liexp
+pip install -r requirements.txt
+```
+
+❌ **WRONG:**
+```bash
+# Running without environment activation
+python setup_intugle.py  # May cause import errors
+```
+
+#### Environment Verification:
+- Check active environment: `conda info --envs` or `which python`
+- Verify package availability in `liexp` environment
+- Ensure all dependencies are installed in the correct environment
+

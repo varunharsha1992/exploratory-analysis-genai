@@ -1,0 +1,134 @@
+{
+  "title": "EDA Simplified Workflow",
+  "nodes": [
+    "univariate_analysis",
+    "hypothesis_generation",
+    "error_handler"
+  ],
+  "edges": [
+    {
+      "source": "univariate_analysis",
+      "target": "hypothesis_generation",
+      "condition": "continue"
+    },
+    {
+      "source": "univariate_analysis",
+      "target": "error_handler",
+      "condition": "error_handler"
+    },
+    {
+      "source": "hypothesis_generation",
+      "target": "END",
+      "condition": "continue"
+    },
+    {
+      "source": "hypothesis_generation",
+      "target": "error_handler",
+      "condition": "error_handler"
+    },
+    {
+      "source": "error_handler",
+      "target": "END",
+      "condition": "end"
+    }
+  ],
+  "entry_point": "univariate_analysis",
+  "workflow_type": "simplified",
+  "agent_tools": {
+    "univariate_analysis": {
+      "data_profiling": [
+        "profile_variable",
+        "detect_anomalies",
+        "analyze_trends"
+      ],
+      "intugle_tools": [
+        "discover_related_variables",
+        "search_knowledge_base",
+        "get_variable_metadata",
+        "create_etl_schema",
+        "build_data_product"
+      ],
+      "analysis_tools": [
+        "DataProfilingTool",
+        "AnomalyDetectionTool",
+        "TrendAnalysisTool"
+      ],
+      "description": "Statistical analysis, anomaly detection, trend analysis, and variable discovery"
+    },
+    "hypothesis_generation": {
+      "research_tools": [
+        "web_search"
+      ],
+      "intugle_tools": [
+        "search_variables",
+        "get_variable_profiles"
+      ],
+      "llm_tools": [
+        "create_react_agent"
+      ],
+      "description": "Domain research, variable discovery, and hypothesis generation using LLM"
+    },
+    "eda_worker_loop": {
+      "orchestration_tools": [
+        "ThreadPoolExecutor",
+        "asyncio",
+        "concurrent.futures"
+      ],
+      "monitoring_tools": [
+        "psutil",
+        "time",
+        "performance_metrics"
+      ],
+      "hypothesis_tools": [
+        "assess_hypothesis_complexity",
+        "manage_resources",
+        "execute_hypothesis_test"
+      ],
+      "description": "Resource management, parallel execution, and hypothesis testing orchestration"
+    },
+    "eda_analysis": {
+      "intugle_tools": [
+        "intugle_tools"
+      ],
+      "analysis_tools": [
+        "correlation_analysis",
+        "transformation_tool",
+        "visualization_tool"
+      ],
+      "data_tools": [
+        "ETL_schema",
+        "DataProductBuilder"
+      ],
+      "description": "Individual hypothesis testing with statistical analysis and visualization"
+    },
+    "summarizer": {
+      "llm_tools": [
+        "get_llm"
+      ],
+      "analysis_tools": [
+        "json_processing",
+        "result_aggregation"
+      ],
+      "output_tools": [
+        "format_results",
+        "generate_summary"
+      ],
+      "description": "Result aggregation, summary generation, and final report creation"
+    },
+    "error_handler": {
+      "monitoring_tools": [
+        "logging",
+        "error_tracking"
+      ],
+      "recovery_tools": [
+        "graceful_degradation",
+        "fallback_options"
+      ],
+      "notification_tools": [
+        "error_reporting",
+        "status_updates"
+      ],
+      "description": "Error detection, logging, and graceful failure handling"
+    }
+  }
+}

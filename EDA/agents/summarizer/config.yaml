@@ -1,0 +1,35 @@
+agent:
+  file: summarizer.py
+  class: SummarizerAgent
+
+model_provider: openai
+model_name: gpt-4o-mini
+
+prompt:
+  file: summarizer_prompt.py
+  variable: prompt
+
+# Port configuration for dependency injection
+ports:
+  vector_search:
+    adapter: MongoDBVectorSearchAdapter
+    config:
+      mongo_uri_env: MONGO_ATLAS_SEARCH_INDEX_ENABLED_DB
+      embedding_provider: gemini
+      embedding_model: models/embedding-001
+      database_name: cmms
+
+# Agent-specific configuration
+summarizer_config:
+  modeling_objective: predictive_analytics
+  report_format: json
+  include_visualizations: false
+  synthesis_depth: comprehensive
+  recommendation_priority: high_impact_first
+  executive_summary: true
+  feature_engineering_focus: true
+  implementation_guidance: detailed
+
+# Note: Tools are now created programmatically using injected ports
+tools: []
+

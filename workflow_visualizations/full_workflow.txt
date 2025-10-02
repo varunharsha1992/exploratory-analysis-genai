@@ -1,0 +1,63 @@
+
+EDA Full Workflow
+=================
+
+Entry Point: univariate_analysis
+
+Workflow Flow:
+1. univariate_analysis
+   ├── continue → hypothesis_generation
+   └── error_handler → error_handler
+
+2. hypothesis_generation
+   ├── continue → eda_worker_loop
+   └── error_handler → error_handler
+
+3. eda_worker_loop
+   ├── continue → summarizer
+   └── error_handler → error_handler
+
+4. summarizer
+   ├── continue → END
+   └── error_handler → error_handler
+
+5. error_handler
+   └── end → END
+
+Error Handling:
+- Any node can route to error_handler on failure
+- error_handler provides graceful termination
+
+
+Agent Tools:
+--------------------------------------------------
+
+Univariate Analysis:
+  Description: Statistical analysis, anomaly detection, trend analysis, and variable discovery
+  Data Profiling: profile_variable, detect_anomalies, analyze_trends
+  Intugle Tools: discover_related_variables, search_knowledge_base, get_variable_metadata, create_etl_schema, build_data_product
+  Analysis Tools: DataProfilingTool, AnomalyDetectionTool, TrendAnalysisTool
+
+Hypothesis Generation:
+  Description: Domain research, variable discovery, and hypothesis generation using LLM
+  Research Tools: web_search
+  Intugle Tools: search_variables, get_variable_profiles
+  Llm Tools: create_react_agent
+
+Eda Worker Loop:
+  Description: Resource management, parallel execution, and hypothesis testing orchestration
+  Orchestration Tools: ThreadPoolExecutor, asyncio, concurrent.futures
+  Monitoring Tools: psutil, time, performance_metrics
+  Hypothesis Tools: assess_hypothesis_complexity, manage_resources, execute_hypothesis_test
+
+Summarizer:
+  Description: Result aggregation, summary generation, and final report creation
+  Llm Tools: get_llm
+  Analysis Tools: json_processing, result_aggregation
+  Output Tools: format_results, generate_summary
+
+Error Handler:
+  Description: Error detection, logging, and graceful failure handling
+  Monitoring Tools: logging, error_tracking
+  Recovery Tools: graceful_degradation, fallback_options
+  Notification Tools: error_reporting, status_updates

@@ -1,0 +1,37 @@
+{
+  "name": "eda_simplified_workflow",
+  "description": "EDA Simplified Workflow",
+  "nodes": [
+    "univariate_analysis",
+    "hypothesis_generation",
+    "error_handler"
+  ],
+  "edges": [
+    {
+      "source": "univariate_analysis",
+      "target": "hypothesis_generation",
+      "condition": "continue"
+    },
+    {
+      "source": "univariate_analysis",
+      "target": "error_handler",
+      "condition": "error_handler"
+    },
+    {
+      "source": "hypothesis_generation",
+      "target": "END",
+      "condition": "continue"
+    },
+    {
+      "source": "hypothesis_generation",
+      "target": "error_handler",
+      "condition": "error_handler"
+    },
+    {
+      "source": "error_handler",
+      "target": "END",
+      "condition": "end"
+    }
+  ],
+  "entry_point": "univariate_analysis"
+}

@@ -1,0 +1,105 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: A system for tracking various types of distribution channels, their
+    performance metrics, and any supply chain issues related to specific products.
+  tags: null
+  uuid: efb2e84f-f6c4-409c-b82f-444a1d542518
+  schema: public
+  database: ''
+  table:
+    name: disti
+    description: A system for tracking various types of distribution channels, their
+      performance metrics, and any supply chain issues related to specific products.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\disti.csv
+      type: csv
+    columns:
+    - name: disti_type
+      type: close_ended_text
+      category: dimension
+      description: Defines the classification of distribution channels utilized in
+        the supply chain.
+      tags:
+      - Distribution Channel Type
+      - Sales Channel Classification
+      - Market Segment Identifier
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 4
+        sample_data:
+        - Direct
+        - E-commerce
+        - Retailer
+        - Wholesaler
+    - name: prd_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique products within the distribution process.
+      tags:
+      - Product Identifier
+      - Inventory Management
+      - Supply Chain Tracking
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 81
+        sample_data:
+        - P173
+        - P105
+        - P154
+        - P108
+        - P100
+        - P104
+        - P143
+        - P153
+        - P141
+        - P148
+    - name: ops_eff
+      type: float
+      category: measure
+      description: Measures the efficiency of operational processes within the distribution
+        framework.
+      tags:
+      - Operational Efficiency
+      - Performance Metrics
+      - Process Optimization
+      profiling_metrics:
+        count: 100
+        null_count: 4
+        distinct_count: 95
+        sample_data:
+        - '89.71'
+        - '70.04'
+        - '87.89'
+        - '97.18'
+        - '71.71'
+        - '95.42'
+        - '70.78'
+        - '79.71'
+        - '98.29'
+        - '99.58'
+    - name: sc_issue_type
+      type: close_ended_text
+      category: dimension
+      description: Categorization of issues related to distribution processes that
+        impact supply chain operations.
+      tags:
+      - Issue Type Classification
+      - Supply Chain Disruptions
+      - Operational Impact Assessment
+      profiling_metrics:
+        count: 100
+        null_count: 6
+        distinct_count: 4
+        sample_data:
+        - Stockout
+        - Minor Delays
+        - Major Delays
+        - None
+    profiling_metrics:
+      count: 100
+    key: prd_id
+    source_last_modified: 1758983735.4202738

@@ -1,0 +1,138 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: Captures the market coverage metrics across different regions, detailing
+    product identifiers, state counts, market penetration percentages, and geographical
+    coverage percentages to inform strategic business decisions.
+  tags: null
+  uuid: 01258390-27ad-4580-8158-517c006fb362
+  schema: public
+  database: ''
+  table:
+    name: mkt_coverage
+    description: Captures the market coverage metrics across different regions, detailing
+      product identifiers, state counts, market penetration percentages, and geographical
+      coverage percentages to inform strategic business decisions.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\mkt_coverage.csv
+      type: csv
+    columns:
+    - name: region
+      type: close_ended_text
+      category: dimension
+      description: Geographical areas designated for market coverage and strategic
+        business operations.
+      tags:
+      - Market Region
+      - Geographic Coverage
+      - Sales Territory
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 4
+        sample_data:
+        - North
+        - East
+        - West
+        - South
+    - name: p_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique marketing coverage areas or segments within a
+        business.
+      tags:
+      - Product Identifier
+      - Market Coverage Reference
+      - Promotional Campaign ID
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 50
+        sample_data:
+        - P141
+        - P135
+        - P101
+        - P112
+        - P149
+        - P145
+        - P136
+        - P105
+        - P109
+        - P123
+    - name: st_cnt
+      type: integer
+      category: measure
+      description: Indicates the count of distinct sales territories covered by marketing
+        efforts.
+      tags:
+      - Store Count
+      - Market Coverage
+      - Retail Presence
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 87
+        sample_data:
+        - '427'
+        - '84'
+        - '63'
+        - '182'
+        - '65'
+        - '252'
+        - '323'
+        - '57'
+        - '305'
+        - '380'
+    - name: mkt_pent_per
+      type: float
+      category: measure
+      description: Indicates the percentage of market penetration achieved by a product
+        or service within a specific market.
+      tags:
+      - Market Penetration Percentage
+      - Sales Performance Metric
+      - Customer Reach Indicator
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - '68.08'
+        - '88.98'
+        - '36.3'
+        - '20.63'
+        - '14.88'
+        - '27.9'
+        - '40.17'
+        - '55.65'
+        - '62.16'
+        - '40.66'
+    - name: geo_cov_per
+      type: float
+      category: measure
+      description: Indicates the percentage of geographical market coverage achieved
+        by a business.
+      tags:
+      - Geographic Coverage Percentage
+      - Market Penetration Metric
+      - Sales Coverage Analysis
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - '73.38'
+        - '84.7'
+        - '97.42'
+        - '66.52'
+        - '37.38'
+        - '91.93'
+        - '93.79'
+        - '29.24'
+        - '86.27'
+        - '99.84'
+    profiling_metrics:
+      count: 100
+    key: ''
+    source_last_modified: 1758983735.4202738

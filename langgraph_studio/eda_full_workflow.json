@@ -1,0 +1,59 @@
+{
+  "name": "eda_full_workflow",
+  "description": "EDA Full Workflow",
+  "nodes": [
+    "univariate_analysis",
+    "hypothesis_generation",
+    "eda_worker_loop",
+    "summarizer",
+    "error_handler"
+  ],
+  "edges": [
+    {
+      "source": "univariate_analysis",
+      "target": "hypothesis_generation",
+      "condition": "continue"
+    },
+    {
+      "source": "univariate_analysis",
+      "target": "error_handler",
+      "condition": "error_handler"
+    },
+    {
+      "source": "hypothesis_generation",
+      "target": "eda_worker_loop",
+      "condition": "continue"
+    },
+    {
+      "source": "hypothesis_generation",
+      "target": "error_handler",
+      "condition": "error_handler"
+    },
+    {
+      "source": "eda_worker_loop",
+      "target": "summarizer",
+      "condition": "continue"
+    },
+    {
+      "source": "eda_worker_loop",
+      "target": "error_handler",
+      "condition": "error_handler"
+    },
+    {
+      "source": "summarizer",
+      "target": "END",
+      "condition": "continue"
+    },
+    {
+      "source": "summarizer",
+      "target": "error_handler",
+      "condition": "error_handler"
+    },
+    {
+      "source": "error_handler",
+      "target": "END",
+      "condition": "end"
+    }
+  ],
+  "entry_point": "univariate_analysis"
+}

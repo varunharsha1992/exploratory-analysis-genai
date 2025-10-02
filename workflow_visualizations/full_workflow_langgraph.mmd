@@ -1,0 +1,29 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	univariate_analysis(univariate_analysis)
+	hypothesis_generation(hypothesis_generation)
+	eda_worker_loop(eda_worker_loop)
+	summarizer(summarizer)
+	error_handler(error_handler)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> univariate_analysis;
+	eda_worker_loop -. &nbsp;end&nbsp; .-> __end__;
+	eda_worker_loop -.-> error_handler;
+	eda_worker_loop -. &nbsp;continue&nbsp; .-> summarizer;
+	error_handler -. &nbsp;end&nbsp; .-> __end__;
+	hypothesis_generation -. &nbsp;end&nbsp; .-> __end__;
+	hypothesis_generation -. &nbsp;continue&nbsp; .-> eda_worker_loop;
+	hypothesis_generation -.-> error_handler;
+	summarizer -. &nbsp;continue&nbsp; .-> __end__;
+	summarizer -.-> error_handler;
+	univariate_analysis -. &nbsp;end&nbsp; .-> __end__;
+	univariate_analysis -.-> error_handler;
+	univariate_analysis -. &nbsp;continue&nbsp; .-> hypothesis_generation;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc

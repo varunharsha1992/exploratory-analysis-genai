@@ -1,0 +1,255 @@
+---
+description: Rule for using copy-pasteable code blocks instead of generating new code
+globs: **/*.py
+alwaysApply: true
+---
+
+# COPY-PASTE CODE BLOCKS RULE
+
+## CRITICAL: USE COPY-PASTEABLE CODE BLOCKS
+
+**ALWAYS provide copy-pasteable code blocks instead of generating new code from scratch.**
+
+## What TO do:
+
+✅ **DO provide complete, copy-pasteable code blocks:**
+
+```python
+# Complete, working code that can be copied directly
+from langgraph.prebuilt import create_react_agent
+from langchain_core.messages import AIMessage
+
+class MyAgent:
+    def __init__(self, param1, param2):
+        self.param1 = param1
+        self.param2 = param2
+    
+    def process(self, state):
+        # Complete implementation
+        return updated_state
+```
+
+## What NOT to do:
+
+❌ **DON'T provide incomplete or pseudo-code:**
+
+```python
+# BAD: Incomplete code
+class MyAgent:
+    def __init__(self, param1, param2):
+        # TODO: implement initialization
+        pass
+    
+    def process(self, state):
+        # TODO: implement processing
+        return state
+```
+
+## Code Block Requirements:
+
+### 1. **Complete Implementation**
+- All methods must be fully implemented
+- No `pass` statements or `TODO` comments
+- All imports included
+- All dependencies resolved
+
+### 2. **Copy-Paste Ready**
+- Code can be copied directly into files
+- No additional modifications needed
+- All syntax is correct
+- All indentation is proper
+
+### 3. **Working Code**
+- Code should run without errors
+- All function calls are valid
+- All variable references are defined
+- All return statements are complete
+
+## Template Usage:
+
+When using templates, provide the **complete filled-in template**:
+
+```python
+# GOOD: Complete template with all placeholders filled
+class HypothesisGenerationAgent:
+    def __init__(self, target_variable: str, kb=None, hypothesis_limit: int = 10):
+        self.target_variable = target_variable
+        self.kb = kb
+        self.hypothesis_limit = hypothesis_limit
+        # ... rest of implementation
+```
+
+```python
+# BAD: Template with placeholders
+class {AgentName}Agent:
+    def __init__(self, {specific_params}):
+        {init_assignments}
+        # ... incomplete
+```
+
+## File Creation Pattern:
+
+1. **Provide complete code block**
+2. **User copies the code**
+3. **User pastes into file**
+4. **Code works immediately**
+
+## Examples:
+
+### ✅ GOOD: Complete Agent Class
+
+```python
+from langgraph.prebuilt import create_react_agent
+from langchain_core.messages import AIMessage
+from LLMS.llms import get_llm
+from utils.states.orchestrator_states import OrchestratorState
+import json
+import logging
+from typing import Dict, Any, Optional, List
+from agents.hypothesis_generation.hypothesis_generation_prompt import prompt
+from utils.config_loader import AgentConfigLoader
+from utils.helper import clean_messages_for_agent, msg_to_dict
+
+class HypothesisGenerationAgent:
+    def __init__(self, target_variable: str, kb=None, hypothesis_limit: int = 10):
+        """
+        Initialize the Hypothesis Generation Agent
+        
+        Args:
+            target_variable: The variable to be analyzed
+            kb: Knowledge base instance (Intugle integration)
+            hypothesis_limit: Maximum number of hypotheses to generate
+        """
+        self.target_variable = target_variable
+        self.kb = kb
+        self.hypothesis_limit = hypothesis_limit
+        self.config_loader = AgentConfigLoader()
+        
+        # Load model configuration
+        model_config = self.config_loader.get_model_config("hypothesis_generation")
+        self.llm = get_llm(model_config['provider'], model_config['model'])
+        self.prompt = self.config_loader.load_prompt("hypothesis_generation")
+    
+    def generate_hypotheses(self, univariate_results: Dict = None, research_context: str = "") -> List[Dict[str, Any]]:
+        """
+        Generate hypotheses about variables influencing the target
+        
+        Args:
+            univariate_results: Results from univariate analysis
+            research_context: Domain context for hypothesis generation
+            
+        Returns:
+            List of generated hypotheses with confidence scores
+        """
+        try:
+            hypotheses = []
+            
+            # Use kb.search() to find related variables
+            if self.kb:
+                related_vars = self.kb.search(f"variables related to {self.target_variable}")
+                
+                for var in related_vars[:self.hypothesis_limit]:
+                    hypothesis = {
+                        "variable": var.get("name", ""),
+                        "relationship": var.get("relationship", ""),
+                        "confidence": var.get("correlation", 0.0),
+                        "reasoning": f"Based on correlation analysis with {self.target_variable}",
+                        "test_method": "correlation_analysis"
+                    }
+                    hypotheses.append(hypothesis)
+            
+            return hypotheses
+            
+        except Exception as e:
+            logging.error(f"Hypothesis generation failed: {str(e)}")
+            return []
+    
+    def process(self, state: OrchestratorState):
+        """
+        Process method for LangGraph integration
+        
+        Args:
+            state: OrchestratorState containing workflow state
+            
+        Returns:
+            Updated state with hypothesis generation results
+        """
+        try:
+            # Extract parameters from state
+            target_variable = state.get("target_variable")
+            univariate_results = state.get("univariate_results", {})
+            research_context = state.get("domain_context", "")
+            
+            # Generate hypotheses
+            hypotheses = self.generate_hypotheses(univariate_results, research_context)
+            
+            # Update state with results
+            updated_state = state.copy()
+            updated_state["generated_hypotheses"] = hypotheses
+            updated_state["current_agent"] = "hypothesis_generation"
+            updated_state["execution_status"] = "completed"
+            
+            return updated_state
+            
+        except Exception as e:
+            logging.error(f"Hypothesis generation agent processing failed: {str(e)}")
+            updated_state = state.copy()
+            updated_state["error_messages"] = updated_state.get("error_messages", [])
+            updated_state["error_messages"].append(f"Hypothesis generation failed: {str(e)}")
+            updated_state["execution_status"] = "failed"
+            return updated_state
+
+def hypothesis_generation_agent(state: OrchestratorState):
+    """
+    LangGraph node function for hypothesis generation
+    
+    Args:
+        state: OrchestratorState containing workflow state
+        
+    Returns:
+        Updated state with hypothesis generation results
+    """
+    # Extract configuration from state
+    config = state.get("config", {})
+    kb = state.get("kb")
+    
+    # Initialize agent
+    agent = HypothesisGenerationAgent(
+        target_variable=state.get("target_variable", ""),
+        kb=kb,
+        hypothesis_limit=config.get("hypothesis_config", {}).get("max_hypotheses", 10)
+    )
+    
+    # Process state
+    return agent.process(state)
+```
+
+### ❌ BAD: Incomplete Code
+
+```python
+# BAD: Incomplete implementation
+class HypothesisGenerationAgent:
+    def __init__(self, target_variable: str, kb=None, hypothesis_limit: int = 10):
+        # TODO: implement initialization
+        pass
+    
+    def generate_hypotheses(self, univariate_results: Dict = None, research_context: str = ""):
+        # TODO: implement hypothesis generation
+        return []
+    
+    def process(self, state: OrchestratorState):
+        # TODO: implement processing
+        return state
+```
+
+## Benefits:
+
+1. **Faster Development**: Users can copy-paste immediately
+2. **No Token Waste**: No need to generate new code
+3. **Consistency**: All agents follow the same pattern
+4. **Reliability**: Code is tested and working
+5. **Efficiency**: Reduces back-and-forth iterations
+
+## Remember:
+
+**Always provide complete, working, copy-pasteable code blocks. The user should be able to copy your code and use it immediately without any modifications.**

@@ -1,0 +1,111 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: A collection of products that includes details such as product identifiers,
+    names, categories, and brands, facilitating inventory management and sales tracking.
+  tags: null
+  uuid: 909a9421-05cb-45ba-9fe4-1fbe94b62acc
+  schema: public
+  database: ''
+  table:
+    name: prd_mstr
+    description: A collection of products that includes details such as product identifiers,
+      names, categories, and brands, facilitating inventory management and sales tracking.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\prd_mstr.csv
+      type: csv
+    columns:
+    - name: prd_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique products within the inventory management system.
+      tags:
+      - Product Identifier
+      - Inventory Management
+      - Sales Tracking
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - P149
+        - P169
+        - P188
+        - P109
+        - P154
+        - P178
+        - P185
+        - P172
+        - P187
+        - P182
+    - name: name
+      type: alphanumeric
+      category: dimension
+      description: Identifies distinct products offered by the business.
+      tags:
+      - Product Identifier
+      - Inventory Management
+      - Sales Tracking
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - Product 44
+        - Product 71
+        - Product 70
+        - Product 30
+        - Product 77
+        - Product 95
+        - Product 27
+        - Product 32
+        - Product 29
+        - Product 64
+    - name: category
+      type: close_ended_text
+      category: dimension
+      description: A classification that groups products into distinct types for better
+        organization and marketing strategies.
+      tags:
+      - Product Category
+      - Consumer Goods
+      - Market Segmentation
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 5
+        sample_data:
+        - Home Care
+        - Beverage
+        - Personal Care
+        - Biscuits & Cookies
+        - Cakes
+    - name: brand
+      type: alphanumeric
+      category: dimension
+      description: Identifies the various manufacturers or labels associated with
+        products in the inventory.
+      tags:
+      - Product Branding
+      - Market Differentiation
+      - Consumer Recognition
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 10
+        sample_data:
+        - Brand 6
+        - Brand 10
+        - Brand 7
+        - Brand 1
+        - Brand 4
+        - Brand 5
+        - Brand 9
+        - Brand 8
+        - Brand 3
+        - Brand 2
+    profiling_metrics:
+      count: 100
+    key: prd_id
+    source_last_modified: 1758983735.4202738

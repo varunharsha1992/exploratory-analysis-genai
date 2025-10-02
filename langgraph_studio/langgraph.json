@@ -1,0 +1,9 @@
+{
+  "graphs": {
+    "eda_simplified_workflow": {
+      "path": "EDA.workflow.eda_workflow:create_simplified_workflow",
+      "description": "EDA Simplified Workflow for Exploratory Data Analysis"
+    }
+  },
+  "env": ".env"
+}

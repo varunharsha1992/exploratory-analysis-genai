@@ -1,0 +1,586 @@
+relationships:
+- name: ad_spends-comp_price
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 123f1de0-54c5-4b94-a52f-44e7f440d0e3
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: comp_price
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-cons_fb
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 80d1d5e5-fe18-4217-8c3a-cecba233caf4
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: cons_fb
+    column: p_id
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-disti
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 27667990-cb56-4d3f-9743-e5274788beb0
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: disti
+    column: prd_id
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-mkt_coverage
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: f705fa15-dd59-4a14-9fd6-6260fbfd75ae
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: mkt_coverage
+    column: p_id
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-prd_mstr
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 73f84883-f3af-4aa2-9abf-c21f1f7082ac
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: prd_mstr
+    column: prd_id
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-price_sense
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 1ebdbca0-940f-4572-8a66-beee7b26ee42
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: price_sense
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-pric_strat
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 8195b406-1ce6-4521-88fd-360889ff0489
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: pric_strat
+    column: prdid
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-retail_audit
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: ad32c509-50f2-4931-bc62-db23f978bbb8
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: retail_audit
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-rnd
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 4a545785-d0e2-4259-9fef-ad96fcad1a46
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: rnd
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-sales
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: abb6ce4d-9ace-4f5d-8562-bbae456b66d7
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: sales
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: ad_spends-social
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 7fbb13eb-0142-4278-9ecc-a3ff402e9cf1
+  source:
+    table: ad_spends
+    column: camp_id
+  target:
+    table: social
+    column: camp_id
+  profiling_metrics: null
+  type: one_to_many
+- name: comp_price-cons_fb
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: c1a96139-49ac-4525-999a-0000a9dd9100
+  source:
+    table: comp_price
+    column: pid
+  target:
+    table: cons_fb
+    column: p_id
+  profiling_metrics: null
+  type: one_to_many
+- name: comp_price-prd_mstr
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 68da2cf9-c565-402d-b5c2-fb73ef1f1324
+  source:
+    table: comp_price
+    column: pid
+  target:
+    table: prd_mstr
+    column: prd_id
+  profiling_metrics: null
+  type: one_to_many
+- name: comp_price-price_sense
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: a48143f4-8d43-4929-8252-d8dc6b74024e
+  source:
+    table: comp_price
+    column: pid
+  target:
+    table: price_sense
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: comp_price-pric_strat
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: bbdea638-c17a-4e0a-977a-52504054c8be
+  source:
+    table: comp_price
+    column: pid
+  target:
+    table: pric_strat
+    column: prdid
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-disti
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: c8689580-bf72-4985-ab80-4fa4d24d5f6b
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: disti
+    column: prd_id
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-mkt_coverage
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 3ee4ffff-c852-4332-82f0-4f2e29ba9e79
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: mkt_coverage
+    column: p_id
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-prd_mstr
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 2d167465-b54c-4c5b-91e0-44af5748965d
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: prd_mstr
+    column: prd_id
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-price_sense
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 295c20ed-0280-456e-9523-48f2b1203c88
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: price_sense
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-pric_strat
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 4cbc6411-d282-4cc7-becf-02bbf4f7c3cc
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: pric_strat
+    column: prdid
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-retail_audit
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 6e83e63f-7777-4235-a448-2c63d0ef33e8
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: retail_audit
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-rnd
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: caa2de0b-f34e-42fc-8070-b8c5ef065234
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: rnd
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-sales
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 3472384e-bbfb-4644-92b6-04fedbed3974
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: sales
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: cons_fb-social
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: c404b0f5-fea6-40c4-b9f0-4d538d27e6e8
+  source:
+    table: cons_fb
+    column: p_id
+  target:
+    table: social
+    column: camp_id
+  profiling_metrics: null
+  type: one_to_many
+- name: disti-prd_mstr
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 3619e26e-26a3-4e0e-828d-2f8134f12796
+  source:
+    table: disti
+    column: prd_id
+  target:
+    table: prd_mstr
+    column: prd_id
+  profiling_metrics: null
+  type: one_to_many
+- name: disti-price_sense
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 74e0d83b-981a-48ec-8b27-041a04d9105d
+  source:
+    table: disti
+    column: prd_id
+  target:
+    table: price_sense
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: disti-pric_strat
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: a8a824b1-ae04-43ff-af2b-c5cc26f252b9
+  source:
+    table: disti
+    column: prd_id
+  target:
+    table: pric_strat
+    column: prdid
+  profiling_metrics: null
+  type: one_to_many
+- name: mkt_coverage-prd_mstr
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 5e45cf2e-edc0-4438-b5c9-027481fc3e1d
+  source:
+    table: mkt_coverage
+    column: p_id
+  target:
+    table: prd_mstr
+    column: prd_id
+  profiling_metrics: null
+  type: one_to_many
+- name: mkt_coverage-price_sense
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 2a446543-5d6e-4627-a9a0-e0ac85b344f0
+  source:
+    table: mkt_coverage
+    column: p_id
+  target:
+    table: price_sense
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: mkt_coverage-pric_strat
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 5751f3dc-9f96-456f-a252-a0383b3ff4ea
+  source:
+    table: mkt_coverage
+    column: p_id
+  target:
+    table: pric_strat
+    column: prdid
+  profiling_metrics: null
+  type: one_to_many
+- name: prd_mstr-price_sense
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 9c9c9749-6e6a-4e94-b565-baac0d633470
+  source:
+    table: prd_mstr
+    column: prd_id
+  target:
+    table: price_sense
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: prd_mstr-pric_strat
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 26f0883d-3ddb-491a-8d69-8e8d9bfd76fb
+  source:
+    table: prd_mstr
+    column: prd_id
+  target:
+    table: pric_strat
+    column: prdid
+  profiling_metrics: null
+  type: one_to_many
+- name: prd_mstr-retail_audit
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: da6a6eb9-297e-401c-a2b9-2ea122b7f113
+  source:
+    table: prd_mstr
+    column: prd_id
+  target:
+    table: retail_audit
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: prd_mstr-rnd
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: e5460f43-719d-4334-a199-6d62489d7800
+  source:
+    table: prd_mstr
+    column: prd_id
+  target:
+    table: rnd
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: prd_mstr-sales
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: c9274465-d00b-4452-ac04-057abe7404d5
+  source:
+    table: prd_mstr
+    column: prd_id
+  target:
+    table: sales
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: prd_mstr-social
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 4232a45b-e26d-4a05-8f75-84623d00c9d1
+  source:
+    table: prd_mstr
+    column: prd_id
+  target:
+    table: social
+    column: camp_id
+  profiling_metrics: null
+  type: one_to_many
+- name: price_sense-pric_strat
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 02d712f8-29c5-4a18-84e6-7a67d2c72ce3
+  source:
+    table: price_sense
+    column: pid
+  target:
+    table: pric_strat
+    column: prdid
+  profiling_metrics: null
+  type: one_to_many
+- name: price_sense-retail_audit
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: f1188e3d-2d6f-411a-849e-29f2fbf28f56
+  source:
+    table: price_sense
+    column: pid
+  target:
+    table: retail_audit
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: price_sense-rnd
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 513ae649-41e5-47bc-8684-22b0cf1002f3
+  source:
+    table: price_sense
+    column: pid
+  target:
+    table: rnd
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: price_sense-sales
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: cf8ced3e-1f92-4422-97ec-b35d342d4ac0
+  source:
+    table: price_sense
+    column: pid
+  target:
+    table: sales
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: price_sense-social
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 785acc43-09fc-4214-ae87-33c4a225a722
+  source:
+    table: price_sense
+    column: pid
+  target:
+    table: social
+    column: camp_id
+  profiling_metrics: null
+  type: one_to_many
+- name: pric_strat-retail_audit
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 22c2bdd9-ad19-4bb4-ae98-57e8fcb6da27
+  source:
+    table: pric_strat
+    column: prdid
+  target:
+    table: retail_audit
+    column: pid
+  profiling_metrics: null
+  type: one_to_many
+- name: pric_strat-rnd
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: d0dba7c7-0cb4-4eec-9672-eccd2a746519
+  source:
+    table: pric_strat
+    column: prdid
+  target:
+    table: rnd
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: pric_strat-sales
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 6ebbd763-54d6-4ca0-b748-76b96c56d9f4
+  source:
+    table: pric_strat
+    column: prdid
+  target:
+    table: sales
+    column: prod_id
+  profiling_metrics: null
+  type: one_to_many
+- name: pric_strat-social
+  resource_type: relationship
+  description: ''
+  tags: null
+  uuid: 2efd1b6b-afb8-4b33-8ef1-5b6ffee74805
+  source:
+    table: pric_strat
+    column: prdid
+  target:
+    table: social
+    column: camp_id
+  profiling_metrics: null
+  type: one_to_many

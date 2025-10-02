@@ -1,0 +1,365 @@
+---
+description: Template for creating new LangGraph agents with copy-pasteable code blocks
+globs: agents/**/*.py
+alwaysApply: true
+---
+
+# Agent Creation Template
+
+## CRITICAL RULES
+
+1. **NEVER create README files** for individual agents unless explicitly requested
+2. **ALWAYS use copy-pasteable code blocks** instead of generating new code
+3. **FOLLOW the exact directory structure** shown below
+4. **USE the provided templates** for consistency
+
+## Directory Structure Template
+
+```
+agents/
+└── {agent_name}/
+    ├── __init__.py
+    ├── {agent_name}.py
+    ├── config.yaml
+    ├── {agent_name}_prompt.py
+    └── example_usage.py
+```
+
+## File Templates
+
+### 1. Agent Class Template (`{agent_name}.py`)
+
+```python
+from langgraph.prebuilt import create_react_agent
+from langchain_core.messages import AIMessage
+from LLMS.llms import get_llm
+from utils.states.orchestrator_states import OrchestratorState
+import json
+import logging
+from typing import Dict, Any, Optional, List
+from agents.{agent_name}.{agent_name}_prompt import prompt
+from utils.config_loader import AgentConfigLoader
+from utils.helper import clean_messages_for_agent, msg_to_dict
+
+class {AgentName}Agent:
+    def __init__(self, {specific_params}):
+        """
+        Initialize the {Agent Name} Agent
+        
+        Args:
+            {param_descriptions}
+        """
+        {init_assignments}
+        self.config_loader = AgentConfigLoader()
+        
+        # Load model configuration
+        model_config = self.config_loader.get_model_config("{agent_name}")
+        self.llm = get_llm(model_config['provider'], model_config['model'])
+        self.prompt = self.config_loader.load_prompt("{agent_name}")
+        
+        # Agent-specific configuration
+        {config_assignments}
+    
+    def {main_method}(self, {method_params}) -> Dict[str, Any]:
+        """
+        {Method description}
+        
+        Args:
+            {param_descriptions}
+            
+        Returns:
+            Dictionary containing {method} results
+        """
+        try:
+            # Initialize results
+            results = {
+                {results_structure}
+            }
+            
+            {method_implementation}
+            
+            return results
+            
+        except Exception as e:
+            logging.error(f"{Agent name} failed: {str(e)}")
+            return {
+                "error": str(e),
+                "status": "failed"
+            }
+    
+    def process(self, state: OrchestratorState):
+        """
+        Process method for LangGraph integration
+        
+        Args:
+            state: OrchestratorState containing workflow state
+            
+        Returns:
+            Updated state with {agent_name} results
+        """
+        try:
+            # Extract parameters from state
+            {state_extractions}
+            
+            # Execute {main_method}
+            {method_results} = self.{main_method}({method_params})
+            
+            # Update state with results
+            updated_state = state.copy()
+            updated_state["{agent_name}_results"] = {method_results}
+            updated_state["current_agent"] = "{agent_name}"
+            updated_state["execution_status"] = "completed"
+            
+            return updated_state
+            
+        except Exception as e:
+            logging.error(f"{Agent name} agent processing failed: {str(e)}")
+            updated_state = state.copy()
+            updated_state["error_messages"] = updated_state.get("error_messages", [])
+            updated_state["error_messages"].append(f"{Agent name} failed: {str(e)}")
+            updated_state["execution_status"] = "failed"
+            return updated_state
+
+def {agent_name}_agent(state: OrchestratorState):
+    """
+    LangGraph node function for {agent_name}
+    
+    Args:
+        state: OrchestratorState containing workflow state
+        
+    Returns:
+        Updated state with {agent_name} results
+    """
+    # Extract configuration from state
+    config = state.get("config", {})
+    {additional_extractions}
+    
+    # Initialize agent
+    agent = {AgentName}Agent(
+        {agent_initialization}
+    )
+    
+    # Process state
+    return agent.process(state)
+```
+
+### 2. Config Template (`config.yaml`)
+
+```yaml
+agent:
+  file: {agent_name}.py
+  class: {AgentName}Agent
+
+model_provider: openai
+model_name: gpt-4o-mini
+
+prompt:
+  file: {agent_name}_prompt.py
+  variable: prompt
+
+# Port configuration for dependency injection
+ports:
+  vector_search:
+    adapter: MongoDBVectorSearchAdapter
+    config:
+      mongo_uri_env: MONGO_ATLAS_SEARCH_INDEX_ENABLED_DB
+      embedding_provider: gemini
+      embedding_model: models/embedding-001
+      database_name: cmms
+
+# Agent-specific configuration
+{agent_name}_config:
+  {config_parameters}
+
+# Note: Tools are now created programmatically using injected ports
+tools: []
+```
+
+### 3. Prompt Template (`{agent_name}_prompt.py`)
+
+```python
+prompt = """
+You are a specialized {Agent Name} Agent that {agent_description}.
+
+## Your Role:
+{role_description}
+
+## Capabilities:
+{capabilities_list}
+
+## Output Format:
+Return a comprehensive JSON object with the following structure:
+
+```json
+{
+  {output_structure}
+}
+```
+
+## Guidelines:
+{guidelines_list}
+
+## Error Handling:
+{error_handling_instructions}
+
+## Integration Notes:
+{integration_notes}
+
+## Success Criteria:
+{success_criteria_list}
+
+Focus on {focus_area}.
+"""
+```
+
+### 4. Init Template (`__init__.py`)
+
+```python
+"""
+{Agent Name} Agent for {Workflow Name}
+
+This module contains the {AgentName}Agent class that {agent_purpose}.
+
+{agent_description}
+"""
+
+from .{agent_name} import {AgentName}Agent, {agent_name}_agent
+
+__all__ = ['{AgentName}Agent', '{agent_name}_agent']
+```
+
+### 5. Example Usage Template (`example_usage.py`)
+
+```python
+"""
+Example usage of the {AgentName}Agent
+
+This file demonstrates how to use the {AgentName}Agent
+both as a standalone component and as part of the LangGraph workflow.
+"""
+
+import asyncio
+from typing import Dict, Any
+from {agent_name} import {AgentName}Agent, {agent_name}_agent
+
+# Mock dependencies for demonstration
+class Mock{DepName}:
+    """Mock {dependency_name} for testing purposes"""
+    
+    def {mock_method}(self, {mock_params}) -> {mock_return}:
+        """Mock {method_description}"""
+        {mock_implementation}
+        return {mock_return_value}
+
+def example_standalone_usage():
+    """Example of using the agent as a standalone component"""
+    print("=== Standalone {AgentName}Agent Usage ===")
+    
+    # Initialize agent
+    {mock_initialization}
+    
+    agent = {AgentName}Agent(
+        {agent_initialization_params}
+    )
+    
+    # Execute {main_method}
+    results = agent.{main_method}({method_params})
+    
+    # Display results
+    {results_display}
+    
+    return results
+
+def example_langgraph_usage():
+    """Example of using the agent as a LangGraph node"""
+    print("\n=== LangGraph Node Usage ===")
+    
+    # Create mock state
+    state = {
+        {state_structure}
+    }
+    
+    # Execute as LangGraph node
+    updated_state = {agent_name}_agent(state)
+    
+    # Display results
+    {state_display}
+    
+    return updated_state
+
+async def example_workflow_integration():
+    """Example of integrating with the complete workflow"""
+    print("\n=== Workflow Integration Example ===")
+    
+    # This would be used in the actual LangGraph workflow
+    workflow_state = {
+        {workflow_state_structure}
+    }
+    
+    # Execute agent node
+    updated_state = {agent_name}_agent(workflow_state)
+    
+    {workflow_display}
+    
+    return updated_state
+
+if __name__ == "__main__":
+    # Run examples
+    print("{AgentName}Agent Examples")
+    print("=" * 50)
+    
+    # Standalone usage
+    standalone_results = example_standalone_usage()
+    
+    # LangGraph node usage
+    langgraph_results = example_langgraph_usage()
+    
+    # Workflow integration
+    asyncio.run(example_workflow_integration())
+    
+    print("\n" + "=" * 50)
+    print("Examples completed successfully!")
+```
+
+## Usage Instructions
+
+1. **Copy the directory structure** and create the agent folder
+2. **Replace placeholders** in templates:
+   - `{agent_name}` → lowercase agent name (e.g., `hypothesis_generation`)
+   - `{AgentName}` → PascalCase agent name (e.g., `HypothesisGeneration`)
+   - `{Agent Name}` → Human-readable name (e.g., `Hypothesis Generation`)
+   - `{specific_params}` → Agent-specific parameters
+   - `{method_params}` → Method-specific parameters
+   - `{results_structure}` → Expected output structure
+   - `{config_parameters}` → Agent-specific config options
+
+3. **Customize the templates** for your specific agent:
+   - Update method implementations
+   - Add agent-specific logic
+   - Configure output formats
+   - Set up error handling
+
+4. **DO NOT create README files** unless explicitly requested
+
+## Example Placeholder Replacements
+
+For a "Hypothesis Generation Agent":
+
+- `{agent_name}` → `hypothesis_generation`
+- `{AgentName}` → `HypothesisGeneration`
+- `{Agent Name}` → `Hypothesis Generation`
+- `{specific_params}` → `target_variable: str, kb=None, hypothesis_limit: int = 10`
+- `{main_method}` → `generate_hypotheses`
+- `{results_structure}` → `"hypotheses": [], "confidence_scores": {}, "related_variables": []`
+
+## Integration Checklist
+
+- [ ] Agent class follows template structure
+- [ ] Config file properly configured
+- [ ] Prompt file contains agent-specific instructions
+- [ ] Init file exports correct classes
+- [ ] Example usage demonstrates all functionality
+- [ ] No README file created (unless requested)
+- [ ] LangGraph integration implemented
+- [ ] Error handling included
+- [ ] State management implemented

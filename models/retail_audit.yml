@@ -1,0 +1,146 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: A record of inventory and product placement details across various
+    retail outlets, capturing stock status and levels over time to support effective
+    inventory management and sales strategies.
+  tags: null
+  uuid: 08dcefa9-6f49-4c68-97cb-2eb8298d0a04
+  schema: public
+  database: ''
+  table:
+    name: retail_audit
+    description: A record of inventory and product placement details across various
+      retail outlets, capturing stock status and levels over time to support effective
+      inventory management and sales strategies.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\retail_audit.csv
+      type: csv
+    columns:
+    - name: date
+      type: date & time
+      category: dimension
+      description: Indicates the specific moments when retail transactions or audits
+        occur.
+      tags:
+      - Transaction Date
+      - Audit Record Date
+      - Retail Activity Timestamp
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 132
+        sample_data:
+        - '2022-12-12'
+        - '2023-07-22'
+        - '2023-02-06'
+        - '2022-01-08'
+        - '2023-01-19'
+        - '2023-11-09'
+        - '2022-05-02'
+        - '2022-10-22'
+        - '2023-05-06'
+        - '2022-03-15'
+    - name: st_name
+      type: close_ended_text
+      category: dimension
+      description: Identifies the names of retail outlets involved in the audit process.
+      tags:
+      - Retail Outlet Name
+      - Store Identification
+      - Sales Location
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 3
+        sample_data:
+        - Outlet B
+        - Outlet A
+        - Outlet C
+    - name: pid
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique transactions or events within the retail auditing
+        process.
+      tags:
+      - Product Identifier
+      - Retail Inventory Tracking
+      - Sales Audit Reference
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 89
+        sample_data:
+        - P121
+        - P177
+        - P154
+        - P129
+        - P139
+        - P181
+        - P115
+        - P107
+        - P144
+        - P180
+    - name: stk_status
+      type: close_ended_text
+      category: dimension
+      description: Indicates the current availability condition of products in the
+        retail inventory.
+      tags:
+      - Inventory Availability
+      - Stock Level Status
+      - Product Supply Condition
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 3
+        sample_data:
+        - Available
+        - Out of Stock
+        - Low Stock
+    - name: plmt_type
+      type: close_ended_text
+      category: dimension
+      description: Indicates the specific positioning or display type of products
+        within a retail environment.
+      tags:
+      - Product Placement Strategy
+      - Retail Shelf Positioning
+      - Visual Merchandising Insights
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 3
+        sample_data:
+        - Upper Shelf
+        - Lower Shelf
+        - Eye Level
+    - name: invt_level
+      type: integer
+      category: measure
+      description: Indicates the quantity of inventory available for sale or distribution
+        within a retail environment.
+      tags:
+      - Inventory Management
+      - Stock Level Monitoring
+      - Retail Audit Insights
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 69
+        sample_data:
+        - '119'
+        - '159'
+        - '25'
+        - '142'
+        - '29'
+        - '64'
+        - '22'
+        - '33'
+        - '144'
+        - '75'
+    profiling_metrics:
+      count: 200
+    key: ''
+    source_last_modified: 1758983735.4202738

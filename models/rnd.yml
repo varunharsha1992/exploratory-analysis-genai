@@ -1,0 +1,125 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: Tracks various research and development initiatives, including their
+    types, outcomes, and associated expenditures.
+  tags: null
+  uuid: 1aa04d85-4366-4c87-9cb6-a3dfeec32bff
+  schema: public
+  database: ''
+  table:
+    name: rnd
+    description: Tracks various research and development initiatives, including their
+      types, outcomes, and associated expenditures.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\rnd.csv
+      type: csv
+    columns:
+    - name: prj_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique research and development projects within an organization.
+      tags:
+      - Research Project Identifier
+      - Project Management Reference
+      - Innovation Development Code
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - RD195
+        - RD198
+        - RD128
+        - RD161
+        - RD139
+        - RD178
+        - RD188
+        - RD144
+        - RD193
+        - RD149
+    - name: prod_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique products within the inventory management process.
+      tags:
+      - Product Identifier
+      - Inventory Management
+      - Sales Tracking
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 84
+        sample_data:
+        - P141
+        - P184
+        - P120
+        - P126
+        - P125
+        - P185
+        - P150
+        - P148
+        - P165
+        - P155
+    - name: type
+      type: close_ended_text
+      category: dimension
+      description: Categorizes the nature of initiatives aimed at enhancing products
+        or services.
+      tags:
+      - Innovation Type
+      - Product Development Focus
+      - Improvement Strategy
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 3
+        sample_data:
+        - Packaging Innovation
+        - Product Improvement
+        - New Product Development
+    - name: result
+      type: close_ended_text
+      category: dimension
+      description: Indicates the outcome of a specific evaluation or assessment process.
+      tags:
+      - Outcome Assessment
+      - Project Results
+      - Performance Evaluation
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 3
+        sample_data:
+        - Success
+        - Partial Success
+        - Failure
+    - name: amt_spent
+      type: float
+      category: measure
+      description: The total amount of money spent in a specific transaction or series
+        of transactions.
+      tags:
+      - Customer Spending
+      - Transaction Amount
+      - Sales Revenue
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - '108359.82'
+        - '70664.7'
+        - '127131.38'
+        - '164505.36'
+        - '153997.99'
+        - '151964.44'
+        - '126758.49'
+        - '137862.45'
+        - '68218.13'
+        - '171887.58'
+    profiling_metrics:
+      count: 100
+    key: prj_id
+    source_last_modified: 1758983735.4202738

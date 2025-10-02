@@ -1,0 +1,141 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: Captures transactional data related to product sales, including the
+    date of sale, product identification, sales volume, total amount, and return percentage,
+    enabling analysis of sales performance and trends.
+  tags: null
+  uuid: 7fd69d93-69df-4763-b07a-7cbe795bc99a
+  schema: public
+  database: ''
+  table:
+    name: sales
+    description: Captures transactional data related to product sales, including the
+      date of sale, product identification, sales volume, total amount, and return
+      percentage, enabling analysis of sales performance and trends.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\sales.csv
+      type: csv
+    columns:
+    - name: date
+      type: date & time
+      category: dimension
+      description: Indicates the specific point in time when a transaction occurred
+        within the sales process.
+      tags:
+      - Sales Transaction Date
+      - Customer Purchase Date
+      - Revenue Recognition Date
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 120
+        sample_data:
+        - '2022-08-27'
+        - '2022-08-16'
+        - '2022-10-18'
+        - '2022-12-12'
+        - '2022-08-09'
+        - '2022-09-19'
+        - '2021-07-11'
+        - '2022-07-11'
+        - '2022-09-30'
+        - '2021-01-23'
+    - name: prod_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique products involved in sales transactions.
+      tags:
+      - Product Identifier
+      - Sales Inventory Reference
+      - Merchandise Tracking Code
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - P176
+        - P198
+        - P153
+        - P186
+        - P189
+        - P163
+        - P115
+        - P199
+        - P146
+        - P107
+    - name: vol
+      type: integer
+      category: measure
+      description: Indicates the quantity of products sold during a specific period.
+      tags:
+      - Sales Volume
+      - Transaction Count
+      - Revenue Indicator
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 93
+        sample_data:
+        - '446'
+        - '129'
+        - '613'
+        - '722'
+        - '379'
+        - '685'
+        - '118'
+        - '346'
+        - '343'
+        - '507'
+    - name: amt
+      type: float
+      category: measure
+      description: Monetary value associated with sales transactions.
+      tags:
+      - Sales Revenue
+      - Transaction Amount
+      - Financial Performance
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - '86449.97'
+        - '70158.2'
+        - '29485.52'
+        - '29723.14'
+        - '98198.75'
+        - '41540.59'
+        - '34156.26'
+        - '36287.1'
+        - '14334.7'
+        - '85330.07'
+    - name: return_per
+      type: float
+      category: measure
+      description: Indicates the percentage of returns relative to total sales, reflecting
+        the effectiveness of sales strategies and customer satisfaction.
+      tags:
+      - Return Percentage
+      - Sales Performance Metric
+      - Profitability Indicator
+      profiling_metrics:
+        count: 200
+        null_count: 0
+        distinct_count: 88
+        sample_data:
+        - '4.13'
+        - '2.12'
+        - '4.45'
+        - '3.57'
+        - '4.14'
+        - '3.99'
+        - '1.64'
+        - '1.4'
+        - '2.03'
+        - '4.54'
+    profiling_metrics:
+      count: 200
+    key: ''
+    source_last_modified: 1758983735.4202738

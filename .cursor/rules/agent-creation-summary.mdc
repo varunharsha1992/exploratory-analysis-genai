@@ -1,0 +1,149 @@
+---
+description: Summary of all agent creation rules and quick reference
+globs: agents/**/*
+alwaysApply: true
+---
+
+# AGENT CREATION RULES SUMMARY
+
+## QUICK REFERENCE
+
+### 1. **NEVER CREATE README FILES** ❌
+- No `README.md` files unless explicitly requested
+- Focus on code, not documentation
+- Ask user first if documentation is needed
+
+### 2. **USE COPY-PASTEABLE CODE BLOCKS** ✅
+- Provide complete, working code
+- No incomplete implementations
+- No `TODO` or `pass` statements
+- Code should work immediately after copy-paste
+
+### 3. **FOLLOW EXACT DIRECTORY STRUCTURE** 📁
+```
+agents/
+└── {agent_name}/
+    ├── __init__.py
+    ├── {agent_name}.py
+    ├── config.yaml
+    ├── {agent_name}_prompt.py
+    └── example_usage.py
+```
+
+### 4. **USE PROPER NAMING CONVENTIONS** 🏷️
+- **Directories**: `snake_case` (e.g., `hypothesis_generation`)
+- **Classes**: `PascalCase` + "Agent" (e.g., `HypothesisGenerationAgent`)
+- **Functions**: `snake_case` + "_agent" (e.g., `hypothesis_generation_agent`)
+- **Files**: `snake_case` (e.g., `hypothesis_generation.py`)
+
+## CREATION WORKFLOW
+
+### Step 1: Create Directory
+```bash
+mkdir agents/{agent_name}
+```
+
+### Step 2: Create Files (in order)
+1. `__init__.py` - Package initialization
+2. `{agent_name}.py` - Main agent class
+3. `config.yaml` - Configuration
+4. `{agent_name}_prompt.py` - Agent prompt
+5. `example_usage.py` - Usage examples
+
+### Step 3: Use Templates
+- Copy from `agent-creation-template.mdc`
+- Replace all placeholders
+- Provide complete implementations
+
+## TEMPLATE PLACEHOLDERS
+
+Replace these in templates:
+
+| Placeholder | Example | Description |
+|-------------|---------|-------------|
+| `{agent_name}` | `hypothesis_generation` | Directory and file names |
+| `{AgentName}` | `HypothesisGeneration` | Class names |
+| `{Agent Name}` | `Hypothesis Generation` | Human-readable names |
+| `{specific_params}` | `target_variable: str, kb=None` | Constructor parameters |
+| `{main_method}` | `generate_hypotheses` | Primary method name |
+| `{results_structure}` | `"hypotheses": [], "confidence": {}` | Output structure |
+
+## COMMON PATTERNS
+
+### Agent Class Pattern:
+```python
+class {AgentName}Agent:
+    def __init__(self, {specific_params}):
+        # Initialize with config loader, LLM, prompt
+        
+    def {main_method}(self, {method_params}) -> Dict[str, Any]:
+        # Main agent logic
+        
+    def process(self, state: OrchestratorState):
+        # LangGraph integration
+```
+
+### Node Function Pattern:
+```python
+def {agent_name}_agent(state: OrchestratorState):
+    # Extract config and dependencies
+    # Initialize agent
+    # Process state
+    return agent.process(state)
+```
+
+### Config Pattern:
+```yaml
+agent:
+  file: {agent_name}.py
+  class: {AgentName}Agent
+
+model_provider: openai
+model_name: gpt-4o-mini
+
+prompt:
+  file: {agent_name}_prompt.py
+  variable: prompt
+
+ports:
+  vector_search:
+    adapter: MongoDBVectorSearchAdapter
+    # ... config
+
+{agent_name}_config:
+  # Agent-specific settings
+```
+
+## ERROR PREVENTION
+
+### ❌ Common Mistakes:
+1. Creating README files without being asked
+2. Providing incomplete code with TODOs
+3. Using wrong naming conventions
+4. Missing required files
+5. Deviating from directory structure
+
+### ✅ Best Practices:
+1. Always ask before creating documentation
+2. Provide complete, working code
+3. Follow naming conventions exactly
+4. Create all 5 required files
+5. Use templates consistently
+
+## INTEGRATION CHECKLIST
+
+Before considering an agent complete:
+
+- [ ] All 5 files created
+- [ ] Directory structure correct
+- [ ] Naming conventions followed
+- [ ] Code is complete and working
+- [ ] No README file created
+- [ ] Templates properly filled
+- [ ] LangGraph integration implemented
+- [ ] Error handling included
+- [ ] Example usage provided
+
+## REMEMBER
+
+**The goal is to create agents that can be copy-pasted and used immediately. Focus on working code, not documentation. Follow the structure exactly. Use the templates consistently.**

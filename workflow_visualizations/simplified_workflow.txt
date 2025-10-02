@@ -1,0 +1,43 @@
+
+EDA Simplified Workflow
+=======================
+
+Entry Point: univariate_analysis
+
+Workflow Flow:
+1. univariate_analysis
+   ├── continue → hypothesis_generation
+   └── error_handler → error_handler
+
+2. hypothesis_generation
+   ├── continue → END
+   └── error_handler → error_handler
+
+3. error_handler
+   └── end → END
+
+Error Handling:
+- Any node can route to error_handler on failure
+- error_handler provides graceful termination
+
+
+Agent Tools:
+--------------------------------------------------
+
+Univariate Analysis:
+  Description: Statistical analysis, anomaly detection, trend analysis, and variable discovery
+  Data Profiling: profile_variable, detect_anomalies, analyze_trends
+  Intugle Tools: discover_related_variables, search_knowledge_base, get_variable_metadata, create_etl_schema, build_data_product
+  Analysis Tools: DataProfilingTool, AnomalyDetectionTool, TrendAnalysisTool
+
+Hypothesis Generation:
+  Description: Domain research, variable discovery, and hypothesis generation using LLM
+  Research Tools: web_search
+  Intugle Tools: search_variables, get_variable_profiles
+  Llm Tools: create_react_agent
+
+Error Handler:
+  Description: Error detection, logging, and graceful failure handling
+  Monitoring Tools: logging, error_tracking
+  Recovery Tools: graceful_degradation, fallback_options
+  Notification Tools: error_reporting, status_updates

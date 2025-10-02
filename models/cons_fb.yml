@@ -1,0 +1,120 @@
+sources:
+- name: healthcare
+  resource_type: source
+  description: A collection of customer feedback metrics that evaluate product quality,
+    usage, and satisfaction levels to inform business decisions.
+  tags: null
+  uuid: b24129f1-79de-4375-ab36-4e659a63ea75
+  schema: public
+  database: ''
+  table:
+    name: cons_fb
+    description: A collection of customer feedback metrics that evaluate product quality,
+      usage, and satisfaction levels to inform business decisions.
+    tags: []
+    details:
+      path: C:\Dev\Data Querying AI\data-tools\sample_data\fmcg\cons_fb.csv
+      type: csv
+    columns:
+    - name: p_id
+      type: alphanumeric
+      category: dimension
+      description: Identifies unique products within the inventory management system.
+      tags:
+      - Product Identifier
+      - Inventory Management
+      - Sales Tracking
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 100
+        sample_data:
+        - P108
+        - P165
+        - P144
+        - P184
+        - P114
+        - P133
+        - P122
+        - P157
+        - P134
+        - P135
+    - name: quality_rate
+      type: integer
+      category: measure
+      description: A measure used to evaluate the performance or effectiveness of
+        a service or product.
+      tags:
+      - Customer Satisfaction Rating
+      - Product Quality Assessment
+      - Service Performance Metric
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 5
+        sample_data:
+        - '4'
+        - '2'
+        - '3'
+        - '5'
+        - '1'
+    - name: use_rate
+      type: integer
+      category: measure
+      description: Indicates the frequency or extent of utilization of a service or
+        resource within a specified timeframe.
+      tags:
+      - User Engagement Rate
+      - Resource Utilization Metric
+      - Performance Measurement Indicator
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 5
+        sample_data:
+        - '4'
+        - '2'
+        - '3'
+        - '5'
+        - '1'
+    - name: csat
+      type: integer
+      category: measure
+      description: Measures customer satisfaction levels based on feedback.
+      tags:
+      - Customer Satisfaction Rating
+      - Feedback Assessment
+      - Service Quality Indicator
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 5
+        sample_data:
+        - '1'
+        - '4'
+        - '2'
+        - '3'
+        - '5'
+    - name: csat_field
+      type: close_ended_text
+      category: dimension
+      description: Feedback on customer satisfaction levels regarding a service or
+        product.
+      tags:
+      - Customer Satisfaction Rating
+      - Feedback Response Category
+      - Service Quality Assessment
+      profiling_metrics:
+        count: 100
+        null_count: 0
+        distinct_count: 5
+        sample_data:
+        - Satisfied
+        - Neutral
+        - Very Satisfied
+        - Very Dissatisfied
+        - Dissatisfied
+    profiling_metrics:
+      count: 100
+    key: p_id
+    source_last_modified: 1758983735.4202738
