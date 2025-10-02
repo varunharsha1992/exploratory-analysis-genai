@@ -1,6 +1,6 @@
 # Gen AI driven EDA
 
-A AI-driven data analysis prototype built on LangGraph's Agentic workflowsto provide intelligent data exploration, hypothesis generation and testing.
+A AI-driven data analysis prototype built on LangGraph's Agentic workflows and Intugles data discovery capabilities to provide intelligent data exploration, hypothesis generation and testing.
 
 - **EDA Workflows**: LangGraph-powered data analysis pipelines
 - **Intelligent Hypothesis Generation**: AI-driven hypothesis creation and testing
